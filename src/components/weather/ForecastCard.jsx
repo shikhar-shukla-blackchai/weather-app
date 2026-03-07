@@ -14,29 +14,33 @@ export default function ForecastCard({ day, unit, index }) {
   return (
     <article
       className={cn(
-        "flex flex-col items-center gap-2 rounded-2xl p-4 min-w-[130px]",
-        "bg-white/60 dark:bg-white/10 backdrop-blur-md border border-white/20",
-        "transition-all duration-300 hover:bg-white/80 dark:hover:bg-white/15",
-        "hover:scale-[1.02]",
+        "flex flex-col items-center gap-1.5 rounded-2xl p-4 min-w-[120px]",
+        "bg-white/50 dark:bg-gray-950/50",
+        "backdrop-blur-xl",
+        "border border-white/20 dark:border-white/5",
+        "shadow-lg shadow-black/5 dark:shadow-black/20",
+        "transition-all duration-300",
+        "hover:bg-white/70 dark:hover:bg-gray-950/70",
+        "hover:scale-[1.03] hover:-translate-y-0.5",
         animationClass
       )}
     >
-      <span className="text-sm font-semibold text-foreground">
+      <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">
         {day.dayName}
       </span>
 
       <WeatherIcon icon={day.icon} description={day.description} size="md" />
 
-      <div className="flex items-baseline gap-1.5">
-        <span className="text-sm font-bold text-foreground">
+      <div className="flex items-baseline gap-1">
+        <span className="text-sm font-extrabold text-foreground">
           {formatTemperature(day.tempMax, unit)}
         </span>
-        <span className="text-xs text-muted-foreground">
+        <span className="text-[10px] text-muted-foreground/50 font-semibold">
           {formatTemperature(day.tempMin, unit)}
         </span>
       </div>
 
-      <span className="text-xs text-muted-foreground text-center leading-tight">
+      <span className="text-[10px] text-muted-foreground/50 text-center leading-tight font-medium">
         {capitalizeDescription(day.description)}
       </span>
     </article>

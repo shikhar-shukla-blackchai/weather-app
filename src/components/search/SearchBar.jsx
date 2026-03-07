@@ -166,12 +166,13 @@ export default function SearchBar() {
             onKeyDown={handleKeyDown}
             placeholder="Search for a city..."
             className={cn(
-              "h-12 pl-11 pr-24 rounded-xl text-base",
-              "bg-white/70 dark:bg-white/10 backdrop-blur-sm",
-              "border-white/30 dark:border-white/20",
-              "placeholder:text-muted-foreground/60",
-              "focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:border-sky-500/50",
-              "transition-all duration-200"
+              "h-12 pl-11 pr-24 rounded-2xl text-base",
+              "bg-white/50 dark:bg-gray-950/50 backdrop-blur-2xl",
+              "border border-white/20 dark:border-white/5",
+              "shadow-lg shadow-black/5 dark:shadow-black/20",
+              "placeholder:text-muted-foreground/40",
+              "focus-visible:ring-2 focus-visible:ring-sky-500/50 focus-visible:border-sky-500/30",
+              "transition-all duration-300"
             )}
             role="combobox"
             aria-expanded={isOpen}
@@ -223,9 +224,10 @@ export default function SearchBar() {
           id="search-dropdown"
           role="listbox"
           className={cn(
-            "absolute z-50 mt-2 w-full rounded-xl shadow-lg",
-            "bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl",
-            "border border-white/30 dark:border-white/10",
+            "absolute z-50 mt-2 w-full rounded-2xl",
+            "bg-white/70 dark:bg-gray-950/70 backdrop-blur-2xl",
+            "border border-white/20 dark:border-white/5",
+            "shadow-xl shadow-black/10 dark:shadow-black/30",
             "animate-slide-up overflow-hidden"
           )}
         >
