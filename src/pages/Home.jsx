@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <Layout>
       <div className="space-y-6">
-        <section aria-label="City search">
+        <section aria-label="City search" className="relative z-40">
           <SearchBar />
         </section>
 
