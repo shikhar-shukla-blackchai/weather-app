@@ -10,6 +10,7 @@ import { cn } from "@/utils/cn";
 export default function SearchBar() {
   const {
     searchCity,
+    searchByCoords,
     detectLocation,
     searchHistory,
     removeFromHistory,
@@ -72,7 +73,7 @@ export default function SearchBar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleSelect = useCallback(
+  const handleSelectByName = useCallback(
     (cityName) => {
       setQuery("");
       setSuggestions([]);
@@ -82,17 +83,27 @@ export default function SearchBar() {
     [searchCity]
   );
 
+  const handleSelectSuggestion = useCallback(
+    (suggestion) => {
+      setQuery("");
+      setSuggestions([]);
+      setIsOpen(false);
+      const displayName = `${suggestion.name}${suggestion.state ? `, ${suggestion.state}` : ""}, ${suggestion.country}`;
+      searchByCoords(suggestion.lat, suggestion.lon, displayName);
+    },
+    [searchByCoords]
+  );
+
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
       if (activeIndex >= 0 && suggestions[activeIndex]) {
-        const s = suggestions[activeIndex];
-        handleSelect(`${s.name}${s.state ? `, ${s.state}` : ""}, ${s.country}`);
+        handleSelectSuggestion(suggestions[activeIndex]);
       } else if (query.trim()) {
-        handleSelect(query.trim());
+        handleSelectByName(query.trim());
       }
     },
-    [query, activeIndex, suggestions, handleSelect]
+    [query, activeIndex, suggestions, handleSelectSuggestion, handleSelectByName]
   );
 
   const handleKeyDown = useCallback(
@@ -122,13 +133,12 @@ export default function SearchBar() {
         case "Enter":
           if (activeIndex >= 0 && suggestions[activeIndex]) {
             e.preventDefault();
-            const s = suggestions[activeIndex];
-            handleSelect(`${s.name}${s.state ? `, ${s.state}` : ""}, ${s.country}`);
+            handleSelectSuggestion(suggestions[activeIndex]);
           }
           break;
       }
     },
-    [isOpen, suggestions, activeIndex, handleSelect, query, searchHistory.length]
+    [isOpen, suggestions, activeIndex, handleSelectSuggestion, query, searchHistory.length]
   );
 
   const handleInputChange = useCallback((e) => {
@@ -245,11 +255,7 @@ export default function SearchBar() {
                       ? "bg-sky-50 dark:bg-sky-900/20"
                       : "hover:bg-gray-50 dark:hover:bg-white/5"
                   )}
-                  onClick={() =>
-                    handleSelect(
-                      `${item.name}${item.state ? `, ${item.state}` : ""}, ${item.country}`
-                    )
-                  }
+                  onClick={() => handleSelectSuggestion(item)}
                   onMouseEnter={() => setActiveIndex(i)}
                 >
                   <MapPin className="h-4 w-4 text-muted-foreground shrink-0" />
@@ -271,7 +277,7 @@ export default function SearchBar() {
           {showHistory && (
             <SearchHistory
               history={searchHistory}
-              onSelect={handleSelect}
+              onSelect={handleSelectByName}
               onRemove={removeFromHistory}
               onClear={clearHistory}
             />

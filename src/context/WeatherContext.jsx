@@ -81,6 +81,24 @@ export function WeatherProvider({ children }) {
     [unit, weather, forecast, setCurrentCity, addToHistory]
   );
 
+  const searchByCoords = useCallback(
+    async (lat, lon, displayName) => {
+      if (displayName) {
+        setCurrentCity(displayName);
+        addToHistory(displayName);
+      }
+      await Promise.all([
+        weather.fetchByCoords(lat, lon, unit),
+        forecast.fetchByCoords(lat, lon, unit),
+      ]);
+      if (!displayName && weather.data?.cityName) {
+        setCurrentCity(weather.data.cityName);
+        addToHistory(weather.data.cityName);
+      }
+    },
+    [unit, weather, forecast, setCurrentCity, addToHistory]
+  );
+
   const detectLocation = useCallback(() => {
     geo.getLocation();
   }, [geo]);
@@ -122,6 +140,7 @@ export function WeatherProvider({ children }) {
     geoError: geo.error,
     geoLoading: geo.isLoading,
     searchCity,
+    searchByCoords,
     detectLocation,
     toggleUnit,
     toggleTheme,

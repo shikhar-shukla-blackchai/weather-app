@@ -1,12 +1,12 @@
-import { Droplets, Wind, Gauge, Eye } from "lucide-react";
-import { formatHumidity, formatWindSpeed, formatPressure, formatVisibility } from "@/utils/formatWeather";
+import { Droplets, Gauge, Eye, Thermometer } from "lucide-react";
+import { formatHumidity, formatPressure, formatVisibility, formatTemperature } from "@/utils/formatWeather";
 import { cn } from "@/utils/cn";
 
 const STAT_CONFIG = [
   { key: "humidity", Icon: Droplets, label: "Humidity", color: "text-blue-400" },
-  { key: "wind", Icon: Wind, label: "Wind", color: "text-teal-400" },
   { key: "pressure", Icon: Gauge, label: "Pressure", color: "text-violet-400" },
   { key: "visibility", Icon: Eye, label: "Visibility", color: "text-amber-400" },
+  { key: "feelsLike", Icon: Thermometer, label: "Feels like", color: "text-rose-400" },
 ];
 
 export default function WeatherStats({ weatherData, unit }) {
@@ -14,9 +14,9 @@ export default function WeatherStats({ weatherData, unit }) {
 
   const stats = {
     humidity: formatHumidity(weatherData.humidity),
-    wind: formatWindSpeed(weatherData.windSpeed, unit),
     pressure: formatPressure(weatherData.pressure),
     visibility: formatVisibility(weatherData.visibility),
+    feelsLike: formatTemperature(weatherData.feelsLike, unit),
   };
 
   return (

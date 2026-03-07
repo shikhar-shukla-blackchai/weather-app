@@ -86,11 +86,15 @@ src/
 │   ├── ui/                    — shadcn/ui auto-generated components
 │   ├── layout/
 │   │   ├── Header.jsx         — Sticky header with app branding, unit & theme toggles
-│   │   └── Layout.jsx         — Root layout wrapper with gradient background
+│   │   ├── Layout.jsx         — Root layout wrapper with map background
+│   │   └── MapBackground.jsx  — Full-viewport interactive map (mapcn/MapLibre)
 │   ├── weather/
 │   │   ├── CurrentWeather.jsx — Current conditions card with temp, icon, and stats
 │   │   ├── WeatherIcon.jsx    — Weather icon renderer with fallback
-│   │   ├── WeatherStats.jsx   — Humidity, wind, pressure, visibility grid
+│   │   ├── WeatherStats.jsx   — Humidity, pressure, visibility, feels-like grid
+│   │   ├── WindCompass.jsx    — Animated SVG wind direction compass
+│   │   ├── SunriseSunset.jsx  — Sunrise/sunset arc with sun position indicator
+│   │   ├── TempTrendChart.jsx — SVG temperature range trend chart
 │   │   ├── ForecastCard.jsx   — Individual day forecast card
 │   │   └── ForecastList.jsx   — Horizontal scroll 5-day forecast row
 │   ├── search/
@@ -123,15 +127,21 @@ src/
 
 ## Features
 
+- **Live Map Background** — Full-viewport CARTO map (via mapcn/MapLibre) that flies to each searched city
+- **City Marker** — Animated pulsing marker at the searched city's coordinates
+- **Weather-Aware Gradient** — Dynamic overlay that shifts color based on weather condition (amber for clear, blue for rain, etc.)
 - **City Search** — Debounced autocomplete search powered by OpenWeatherMap geocoding API
-- **Current Weather** — Real-time temperature, conditions, feels-like, and weather icon
+- **Current Weather** — Real-time temperature, conditions, weather icon, and detailed stats
 - **5-Day Forecast** — Daily forecast cards aggregated from 3-hour interval data
-- **Weather Statistics** — Humidity, wind speed, pressure, and visibility at a glance
+- **Temperature Trend Chart** — Pure SVG line chart showing high/low temperature range across 5 days
+- **Wind Compass** — Animated SVG compass showing wind direction and speed
+- **Sunrise/Sunset Arc** — Visual arc indicator with animated sun position tracking
+- **Weather Statistics** — Humidity, pressure, visibility, and feels-like in a compact grid
 - **Geolocation** — One-click browser location detection for local weather
 - **Unit Toggle** — Switch between Celsius (metric) and Fahrenheit (imperial)
 - **Dark Mode** — Full light/dark theme with system preference detection
 - **Search History** — Last 5 searched cities stored in localStorage with chip UI
-- **Glassmorphism UI** — Modern frosted-glass card design with backdrop blur
+- **Glassmorphism UI** — Frosted-glass cards floating over the live map
 - **Responsive Design** — Mobile-first layout optimized for all screen sizes
 - **Accessible** — WCAG AA compliant with ARIA labels, keyboard navigation, and semantic HTML
 - **Error Handling** — Graceful error states for network issues, 404s, and API errors

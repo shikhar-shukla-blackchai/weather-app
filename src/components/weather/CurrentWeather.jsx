@@ -1,6 +1,8 @@
 import { useWeatherContext } from "@/context/WeatherContext";
 import WeatherIcon from "./WeatherIcon";
 import WeatherStats from "./WeatherStats";
+import WindCompass from "./WindCompass";
+import SunriseSunset from "./SunriseSunset";
 import {
   formatTemperature,
   capitalizeDescription,
@@ -19,16 +21,19 @@ export default function CurrentWeather() {
     timestamp,
     timezone,
     temp,
-    feelsLike,
     description,
     icon,
+    windSpeed,
+    windDeg,
+    sunrise,
+    sunset,
   } = weatherData;
 
   return (
     <section
       className={cn(
         "rounded-3xl p-6 md:p-8 animate-fade-in",
-        "bg-white/50 dark:bg-gray-950/50",
+        "bg-white/70 dark:bg-gray-950/70",
         "backdrop-blur-2xl",
         "border border-white/20 dark:border-white/5",
         "shadow-xl shadow-black/5 dark:shadow-black/20",
@@ -64,19 +69,21 @@ export default function CurrentWeather() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="h-1 w-1 rounded-full bg-sky-500/60" />
-            <p className="text-xs text-muted-foreground/60">
-              Feels like{" "}
-              <span className="font-semibold text-foreground/70">
-                {formatTemperature(feelsLike, unit)}
-              </span>
-            </p>
-          </div>
+          <SunriseSunset sunrise={sunrise} sunset={sunset} timezone={timezone} />
         </div>
 
-        <div className="md:w-52 lg:w-56 shrink-0">
+        <div className="flex flex-col gap-4 md:w-52 lg:w-56 shrink-0">
           <WeatherStats weatherData={weatherData} unit={unit} />
+
+          <div
+            className={cn(
+              "flex items-center justify-center rounded-2xl p-3",
+              "bg-white/40 dark:bg-white/5",
+              "border border-white/15 dark:border-white/5",
+            )}
+          >
+            <WindCompass speed={windSpeed} deg={windDeg} unit={unit} />
+          </div>
         </div>
       </div>
     </section>

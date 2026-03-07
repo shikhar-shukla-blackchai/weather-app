@@ -15,7 +15,7 @@ export default function ForecastCard({ day, unit, index }) {
     <article
       className={cn(
         "flex flex-col items-center gap-1.5 rounded-2xl p-4 min-w-[120px]",
-        "bg-white/50 dark:bg-gray-950/50",
+        "bg-white/70 dark:bg-gray-950/70",
         "backdrop-blur-xl",
         "border border-white/20 dark:border-white/5",
         "shadow-lg shadow-black/5 dark:shadow-black/20",
