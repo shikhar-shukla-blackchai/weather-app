@@ -7,7 +7,7 @@ export default function Header() {
   const { unit, theme, toggleUnit, toggleTheme } = useWeatherContext();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/15 dark:border-white/5 bg-white/70 dark:bg-gray-950/70 backdrop-blur-2xl animate-slide-down">
+    <header className="sticky top-0 z-50 w-full border-b border-white/20 dark:border-white/5 bg-white/50 dark:bg-gray-950/50 backdrop-blur-2xl animate-slide-down shadow-sm shadow-black/5 dark:shadow-black/20">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/10 dark:bg-sky-400/10">

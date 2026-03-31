@@ -1,55 +1,63 @@
-import { X } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Clock, X } from "lucide-react";
 import { cn } from "@/utils/cn";
 
 export default function SearchHistory({ history, onSelect, onRemove, onClear }) {
   if (!history || history.length === 0) return null;
 
   return (
-    <div className="space-y-2 px-1 py-2 animate-fade-in">
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-muted-foreground">Recent searches</span>
-        <Button
-          variant="ghost"
-          size="sm"
+    <div className="p-2">
+      <div className="flex items-center justify-between px-2 pt-1 pb-2">
+        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground/70">
+          Recent
+        </p>
+        <button
+          type="button"
           onClick={onClear}
-          className="h-auto py-0.5 px-1.5 text-xs text-muted-foreground hover:text-foreground"
+          className={cn(
+            "text-[11px] font-medium text-muted-foreground/80",
+            "hover:text-sky-600 dark:hover:text-sky-400 transition-colors",
+            "rounded-md px-1.5 py-0.5 hover:bg-black/4 dark:hover:bg-white/6"
+          )}
           aria-label="Clear all search history"
         >
           Clear all
-        </Button>
+        </button>
       </div>
-      <div className="flex flex-wrap gap-1.5">
+      <ul className="space-y-1" role="list">
         {history.map((city) => (
-          <Badge
+          <li
             key={city}
-            variant="secondary"
             className={cn(
-              "cursor-pointer gap-1 pr-1 transition-all duration-200",
-              "hover:bg-sky-100 dark:hover:bg-sky-900/30"
+              "group flex items-center gap-2 rounded-xl px-2 py-2",
+              "hover:bg-black/4 dark:hover:bg-white/6 transition-colors"
             )}
           >
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black/5 dark:bg-white/6 text-muted-foreground">
+              <Clock className="h-4 w-4" aria-hidden="true" />
+            </span>
             <button
+              type="button"
               onClick={() => onSelect(city)}
-              className="py-0.5 text-xs"
+              className="min-w-0 flex-1 text-left text-sm font-medium text-foreground truncate py-0.5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/40"
               aria-label={`Search for ${city}`}
             >
               {city}
             </button>
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onRemove(city);
-              }}
-              className="rounded-full p-0.5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+              type="button"
+              onClick={() => onRemove(city)}
+              className={cn(
+                "shrink-0 rounded-lg p-1.5 text-muted-foreground/70",
+                "sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100",
+                "hover:bg-white/80 dark:hover:bg-white/10 hover:text-foreground transition-colors"
+              )}
               aria-label={`Remove ${city} from history`}
             >
-              <X className="h-3 w-3" />
+              <X className="h-3.5 w-3.5" />
             </button>
-          </Badge>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

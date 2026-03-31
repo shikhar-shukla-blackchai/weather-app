@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo, useTransition } from "react";
-import { Search, MapPin, X, Loader2 } from "lucide-react";
+import { Search, MapPin, X, Loader2, Navigation } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useWeatherContext } from "@/context/WeatherContext";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -233,44 +233,58 @@ export default function SearchBar() {
           id="search-dropdown"
           role="listbox"
           className={cn(
-            "absolute z-50 mt-2 w-full rounded-2xl",
-            "bg-white/70 dark:bg-gray-950/70 backdrop-blur-2xl",
-            "border border-white/20 dark:border-white/5",
-            "shadow-xl shadow-black/10 dark:shadow-black/30",
-            "animate-slide-up overflow-hidden"
+            "absolute z-50 mt-2 w-full rounded-2xl overflow-hidden",
+            "glass-card",
+            "ring-1 ring-black/5 dark:ring-white/10",
+            "animate-slide-up"
           )}
         >
           {showSuggestions && (
-            <ul className="py-1">
-              {suggestions.map((item, i) => (
-                <li
-                  key={`${item.name}-${item.lat}-${item.lon}`}
-                  id={`suggestion-${i}`}
-                  role="option"
-                  aria-selected={i === activeIndex}
-                  className={cn(
-                    "flex items-center gap-3 px-4 py-2.5 cursor-pointer transition-colors",
-                    i === activeIndex
-                      ? "bg-sky-50 dark:bg-sky-900/20"
-                      : "hover:bg-gray-50 dark:hover:bg-white/5"
-                  )}
-                  onClick={() => handleSelectSuggestion(item)}
-                  onMouseEnter={() => setActiveIndex(i)}
-                >
-                  <MapPin className="h-4 w-4 text-muted-foreground shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <span className="text-sm font-medium text-foreground">
-                      {item.name}
-                    </span>
-                    {(item.state || item.country) && (
-                      <span className="text-xs text-muted-foreground ml-1.5">
-                        {[item.state, item.country].filter(Boolean).join(", ")}
-                      </span>
+            <div className="p-2">
+              <p className="px-2 pt-1 pb-2 text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground/70">
+                Locations
+              </p>
+              <ul className="space-y-1">
+                {suggestions.map((item, i) => (
+                  <li
+                    key={`${item.name}-${item.lat}-${item.lon}`}
+                    id={`suggestion-${i}`}
+                    role="option"
+                    aria-selected={i === activeIndex}
+                    className={cn(
+                      "flex items-center gap-3 rounded-xl px-2.5 py-2.5 cursor-pointer transition-all duration-200",
+                      "outline-none focus-visible:ring-2 focus-visible:ring-sky-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
+                      i === activeIndex
+                        ? "bg-sky-500/12 dark:bg-sky-400/15 ring-1 ring-sky-500/25 shadow-sm"
+                        : "hover:bg-black/4 dark:hover:bg-white/6"
                     )}
-                  </div>
-                </li>
-              ))}
-            </ul>
+                    onClick={() => handleSelectSuggestion(item)}
+                    onMouseEnter={() => setActiveIndex(i)}
+                  >
+                    <span
+                      className={cn(
+                        "flex h-9 w-9 shrink-0 items-center justify-center rounded-full",
+                        i === activeIndex
+                          ? "bg-sky-500/20 text-sky-600 dark:text-sky-400"
+                          : "bg-black/5 dark:bg-white/6 text-muted-foreground"
+                      )}
+                    >
+                      <Navigation className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    <div className="flex-1 min-w-0 text-left">
+                      <p className="text-sm font-semibold text-foreground leading-tight truncate">
+                        {item.name}
+                      </p>
+                      {(item.state || item.country) && (
+                        <p className="text-xs text-muted-foreground/80 mt-0.5 truncate">
+                          {[item.state, item.country].filter(Boolean).join(" · ")}
+                        </p>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
 
           {showHistory && (
