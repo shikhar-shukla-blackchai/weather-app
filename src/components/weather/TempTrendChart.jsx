@@ -30,11 +30,7 @@ export default function TempTrendChart({ forecastData, unit }) {
 
   return (
     <div className={cn(
-      "rounded-2xl p-4 pt-3 animate-fade-in",
-      "bg-white/70 dark:bg-gray-950/70",
-      "backdrop-blur-2xl",
-      "border border-white/20 dark:border-white/5",
-      "shadow-xl shadow-black/5 dark:shadow-black/20",
+      "rounded-2xl p-4 pt-3 animate-fade-in glass-card",
     )}>
       <h4 className="text-[10px] font-bold text-muted-foreground/50 uppercase tracking-wider mb-2">
         Temperature Range

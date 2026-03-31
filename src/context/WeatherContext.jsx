@@ -82,19 +82,16 @@ export function WeatherProvider({ children }) {
   );
 
   const searchByCoords = useCallback(
-    async (lat, lon, displayName) => {
-      if (displayName) {
-        setCurrentCity(displayName);
-        addToHistory(displayName);
-      }
+    async (suggestion) => {
+      const { lat, lon, name, state, country } = suggestion;
+      const displayName = `${name}${state ? `, ${state}` : ""}, ${country}`;
+      setCurrentCity(displayName);
+      addToHistory(displayName);
+      const locationLabel = { cityName: name, country };
       await Promise.all([
-        weather.fetchByCoords(lat, lon, unit),
+        weather.fetchByCoords(lat, lon, unit, locationLabel),
         forecast.fetchByCoords(lat, lon, unit),
       ]);
-      if (!displayName && weather.data?.cityName) {
-        setCurrentCity(weather.data.cityName);
-        addToHistory(weather.data.cityName);
-      }
     },
     [unit, weather, forecast, setCurrentCity, addToHistory]
   );

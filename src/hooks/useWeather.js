@@ -20,11 +20,11 @@ export function useWeather() {
     }
   }, []);
 
-  const fetchByCoords = useCallback(async (lat, lon, unit) => {
+  const fetchByCoords = useCallback(async (lat, lon, unit, locationLabel) => {
     setIsLoading(true);
     setError(null);
     try {
-      const result = await fetchWeatherByCoords(lat, lon, unit);
+      const result = await fetchWeatherByCoords(lat, lon, unit, locationLabel);
       setData(result);
     } catch (err) {
       setError(err.message);

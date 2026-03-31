@@ -14,14 +14,10 @@ export default function ForecastCard({ day, unit, index }) {
   return (
     <article
       className={cn(
-        "flex flex-col items-center gap-1.5 rounded-2xl p-4 min-w-[120px]",
-        "bg-white/70 dark:bg-gray-950/70",
-        "backdrop-blur-xl",
-        "border border-white/20 dark:border-white/5",
-        "shadow-lg shadow-black/5 dark:shadow-black/20",
+        "flex flex-col items-center gap-1.5 rounded-2xl p-4 min-w-[120px] glass-card",
         "transition-all duration-300",
-        "hover:bg-white/70 dark:hover:bg-gray-950/70",
         "hover:scale-[1.03] hover:-translate-y-0.5",
+        "hover:brightness-[1.02] dark:hover:brightness-110",
         animationClass
       )}
     >

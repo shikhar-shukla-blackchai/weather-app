@@ -77,10 +77,15 @@ export function getDayName(timestamp) {
   return date.toLocaleDateString("en-US", { weekday: "short" });
 }
 
-export function transformCurrentWeather(data) {
+/**
+ * @param {object} data - Raw OpenWeather current weather response
+ * @param {{ cityName?: string, country?: string }} [overrides] - When fetching by coords, the API may return a district name (e.g. "Marunouchi") instead of the city the user picked (e.g. "Tokyo"). Pass geocoded name/country to preserve the search label.
+ */
+export function transformCurrentWeather(data, overrides = {}) {
+  const { cityName: cityOverride, country: countryOverride } = overrides;
   return {
-    cityName: data.name,
-    country: data.sys?.country,
+    cityName: cityOverride ?? data.name,
+    country: countryOverride ?? data.sys?.country,
     timestamp: data.dt,
     timezone: data.timezone,
     temp: data.main?.temp,

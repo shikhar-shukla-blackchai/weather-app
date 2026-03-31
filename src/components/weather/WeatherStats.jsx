@@ -25,11 +25,9 @@ export default function WeatherStats({ weatherData, unit }) {
         <article
           key={stat.key}
           className={cn(
-            "flex flex-col items-center gap-1 rounded-2xl p-3",
-            "bg-white/40 dark:bg-white/5",
-            "border border-white/15 dark:border-white/5",
+            "flex flex-col items-center gap-1 rounded-2xl p-3 glass-inset",
             "transition-all duration-300",
-            "hover:bg-white/60 dark:hover:bg-white/10 hover:scale-[1.02]"
+            "hover:brightness-[1.03] hover:scale-[1.02]"
           )}
         >
           <stat.Icon className={cn("h-4 w-4", stat.color)} aria-hidden="true" />

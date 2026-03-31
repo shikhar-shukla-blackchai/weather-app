@@ -32,11 +32,7 @@ export default function CurrentWeather() {
   return (
     <section
       className={cn(
-        "rounded-3xl p-6 md:p-8 animate-fade-in",
-        "bg-white/70 dark:bg-gray-950/70",
-        "backdrop-blur-2xl",
-        "border border-white/20 dark:border-white/5",
-        "shadow-xl shadow-black/5 dark:shadow-black/20",
+        "rounded-3xl p-6 md:p-8 animate-fade-in glass-card",
         "transition-all duration-500"
       )}
       aria-label="Current weather conditions"
@@ -77,9 +73,7 @@ export default function CurrentWeather() {
 
           <div
             className={cn(
-              "flex items-center justify-center rounded-2xl p-3",
-              "bg-white/40 dark:bg-white/5",
-              "border border-white/15 dark:border-white/5",
+              "flex items-center justify-center rounded-2xl p-3 glass-inset",
             )}
           >
             <WindCompass speed={windSpeed} deg={windDeg} unit={unit} />

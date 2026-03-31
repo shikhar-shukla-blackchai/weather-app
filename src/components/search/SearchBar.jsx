@@ -88,8 +88,7 @@ export default function SearchBar() {
       setQuery("");
       setSuggestions([]);
       setIsOpen(false);
-      const displayName = `${suggestion.name}${suggestion.state ? `, ${suggestion.state}` : ""}, ${suggestion.country}`;
-      searchByCoords(suggestion.lat, suggestion.lon, displayName);
+      searchByCoords(suggestion);
     },
     [searchByCoords]
   );

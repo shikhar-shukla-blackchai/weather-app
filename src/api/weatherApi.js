@@ -16,11 +16,14 @@ export async function fetchForecast(city, unit = "metric") {
   return transformForecast(data);
 }
 
-export async function fetchWeatherByCoords(lat, lon, unit = "metric") {
+/**
+ * @param {{ cityName?: string, country?: string }} [locationLabel] - From geocoding when user picks a suggestion, so UI shows "Tokyo" not a district name from reverse lookup.
+ */
+export async function fetchWeatherByCoords(lat, lon, unit = "metric", locationLabel) {
   const { data } = await weatherClient.get("/weather", {
     params: { lat, lon, units: unit },
   });
-  return transformCurrentWeather(data);
+  return transformCurrentWeather(data, locationLabel);
 }
 
 export async function fetchForecastByCoords(lat, lon, unit = "metric") {
