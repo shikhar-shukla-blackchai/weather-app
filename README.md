@@ -178,11 +178,3 @@ This app uses the [OpenWeatherMap Free Tier](https://openweathermap.org/api) wit
 6. Deploy
 
 For SPA routing, add a `public/_redirects` file:
-
-```
-/*    /index.html   200
-```
-
-## License
-
-MIT
